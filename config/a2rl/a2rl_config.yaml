@@ -3,7 +3,7 @@
 #common parameters
 imu_topic: "/kingfisher/imu/data_raw"
 image_topic: "/picam/image_raw"
-output_path: "/home/skn/tmp/output/"
+output_path: "/home/eyceel2/Desktop/vio/vins_output"
 
 #camera calibration 
 model_type: PINHOLE
@@ -31,9 +31,8 @@ extrinsicRotation: !!opencv-matrix
    rows: 3
    cols: 3
    dt: d
-   data: [0.00390873, -0.99964733, -0.02626658,
-           0.50437378, 0.02465172, -0.86313347, 
-           0.86347658, -0.00987442, 0.50429226]
+   data: [0.00390873, 0.50437378, 0.86347658, -0.99964733, 0.02465172, -0.00987442, -0.02626658, -0.86313347, 0.50429226]
+   
 #Translation from camera frame to imu frame, imu^T_cam
 extrinsicTranslation: !!opencv-matrix
    rows: 3
@@ -65,8 +64,8 @@ g_norm: 9.81007     # gravity magnitude
 #loop closure parameters
 loop_closure: 1                    # start loop closure
 load_previous_pose_graph: 0        # load and reuse previous pose graph; load from 'pose_graph_save_path'
-fast_relocalization: 0             # useful in real-time and large project
-pose_graph_save_path: "/home/shaozu/output/pose_graph/" # save and load path
+fast_relocalization: 1             # useful in real-time and large project
+pose_graph_save_path: "/home/eyceel2/Desktop/vio/vins_output/pose_graph/" # save and load path
 
 #unsynchronization parameters
 estimate_td: 0                      # online estimate time offset between camera and imu
