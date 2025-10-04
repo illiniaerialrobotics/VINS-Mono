@@ -18,7 +18,9 @@ find_package(catkin REQUIRED COMPONENTS
 find_package(OpenCV)
 
 
-find_package(Ceres REQUIRED)
+# Manually set Ceres paths to avoid CMake config issues
+set(CERES_INCLUDE_DIRS "/usr/include/ceres")
+set(CERES_LIBRARIES "/usr/lib/libceres.so")
 
 set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)
 find_package(Eigen3)
@@ -43,5 +45,5 @@ add_executable(pose_graph
     src/ThirdParty/VocabularyBinary.cpp
     )
 
-target_link_libraries(pose_graph ${catkin_LIBRARIES}  ${OpenCV_LIBS} ${CERES_LIBRARIES}) 
+target_link_libraries(pose_graph ${catkin_LIBRARIES}  ${OpenCV_LIBS} ${CERES_LIBRARIES} glog) 
 # message("catkin_lib  ${catkin_LIBRARIES}")

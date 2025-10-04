@@ -11,12 +11,21 @@ find_package(catkin REQUIRED COMPONENTS
     )
 
 find_package(Boost REQUIRED COMPONENTS filesystem program_options system)
+# Manually set Boost paths to avoid CMAKE_PREFIX_PATH issues
+set(Boost_INCLUDE_DIRS "/usr/include")
+set(Boost_LIBRARIES "/usr/lib/x86_64-linux-gnu/libboost_filesystem.so;/usr/lib/x86_64-linux-gnu/libboost_program_options.so;/usr/lib/x86_64-linux-gnu/libboost_system.so")
 include_directories(${Boost_INCLUDE_DIRS})
 
 find_package(OpenCV REQUIRED)
+# Add OpenCV4 include path
+include_directories(/usr/include/opencv4)
 
 # set(EIGEN_INCLUDE_DIR "/usr/local/include/eigen3")
-find_package(Ceres REQUIRED)
+# Manually set Ceres paths to avoid broken CMake config
+set(CERES_INCLUDE_DIRS "/usr/include/ceres")
+set(CERES_LIBRARIES "/usr/lib/libceres.so")
+# Add Eigen include path to fix Ceres/Eigen conflicts
+include_directories(/usr/include/eigen3)
 include_directories(${CERES_INCLUDE_DIRS})
 
 
@@ -63,5 +72,5 @@ add_library(camera_model
     src/gpl/gpl.cc
     src/gpl/EigenQuaternionParameterization.cc)
 
-target_link_libraries(Calibration ${Boost_LIBRARIES} ${OpenCV_LIBS} ${CERES_LIBRARIES})
-target_link_libraries(camera_model ${Boost_LIBRARIES} ${OpenCV_LIBS} ${CERES_LIBRARIES})
+target_link_libraries(Calibration ${Boost_LIBRARIES} ${OpenCV_LIBS} ${CERES_LIBRARIES} glog)
+target_link_libraries(camera_model ${Boost_LIBRARIES} ${OpenCV_LIBS} ${CERES_LIBRARIES} glog)

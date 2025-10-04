@@ -20,8 +20,9 @@ find_package(OpenCV REQUIRED)
 
 # message(WARNING "OpenCV_VERSION: ${OpenCV_VERSION}")
 
-find_package(Ceres REQUIRED)
-
+# Manually set Ceres paths to avoid CMake config issues
+set(CERES_INCLUDE_DIRS "/usr/include/ceres")
+set(CERES_LIBRARIES "/usr/lib/libceres.so")
 include_directories(${catkin_INCLUDE_DIRS} ${CERES_INCLUDE_DIRS})
 
 set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)
@@ -52,6 +53,6 @@ add_executable(vins_estimator
     )
 
 
-target_link_libraries(vins_estimator ${catkin_LIBRARIES} ${OpenCV_LIBS} ${CERES_LIBRARIES}) 
+target_link_libraries(vins_estimator ${catkin_LIBRARIES} ${OpenCV_LIBS} ${CERES_LIBRARIES} glog) 
 
 
